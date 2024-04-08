@@ -28,8 +28,8 @@ COPY packages/server/package.json ./packages/server/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/objectloader/package.json ./packages/objectloader/
 
-RUN yarn config set sharp_binary_host "https://npmmirror.com/mirrors/sharp"
-RUN yarn config set sharp_libvips_binary_host "https://npmmirror.com/mirrors/sharp-libvips"
+#RUN yarn config set sharp_binary_host "https://npmmirror.com/mirrors/sharp"
+#RUN yarn config set sharp_libvips_binary_host "https://npmmirror.com/mirrors/sharp-libvips"
 RUN yarn workspaces focus --all
 
 # build shared libraries
@@ -38,8 +38,8 @@ COPY packages/shared ./packages/shared/
 COPY packages/objectloader ./packages/objectloader/
 
 RUN yarn config -v
-RUN yarn config set sharp_binary_host "https://npmmirror.com/mirrors/sharp"
-RUN yarn config set sharp_libvips_binary_host "https://npmmirror.com/mirrors/sharp-libvips"
+#RUN yarn config set sharp_binary_host "https://npmmirror.com/mirrors/sharp"
+#RUN yarn config set sharp_libvips_binary_host "https://npmmirror.com/mirrors/sharp-libvips"
 #RUN yarn config set npmRegistryServer https://npm.mirrors.ustc.edu.cn
 RUN yarn workspaces foreach run build
 
@@ -65,8 +65,8 @@ WORKDIR /speckle-server/packages/server
 
 
 
-RUN yarn config set sharp_binary_host "https://npmmirror.com/mirrors/sharp"
-RUN yarn config set sharp_libvips_binary_host "https://npmmirror.com/mirrors/sharp-libvips"
+#RUN yarn config set sharp_binary_host "https://npmmirror.com/mirrors/sharp"
+#RUN yarn config set sharp_libvips_binary_host "https://npmmirror.com/mirrors/sharp-libvips"
 RUN yarn workspaces focus --production
 
 FROM node:18-bookworm-slim as production-stage
