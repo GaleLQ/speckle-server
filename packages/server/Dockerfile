@@ -28,8 +28,7 @@ COPY packages/server/package.json ./packages/server/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/objectloader/package.json ./packages/objectloader/
 
-RUN yarn config -v
-RUN yarn config set registry https://registry.npm.taobao.org
+RUN yarn config set npmRegistryServer https://registry.npm.taobao.org
 RUN yarn workspaces focus --all
 
 # build shared libraries
@@ -38,7 +37,7 @@ COPY packages/shared ./packages/shared/
 COPY packages/objectloader ./packages/objectloader/
 
 RUN yarn config -v
-RUN yarn config set registry https://registry.npm.taobao.org
+RUN yarn config set npmRegistryServer https://registry.npm.taobao.org
 RUN yarn workspaces foreach run build
 
 # install only production dependencies
@@ -59,8 +58,7 @@ COPY packages/objectloader/package.json ./packages/objectloader/
 
 WORKDIR /speckle-server/packages/server
 
-RUN yarn config -v
-RUN yarn config set registry https://registry.npm.taobao.org
+RUN yarn config set npmRegistryServer https://registry.npm.taobao.org
 RUN yarn workspaces focus --production
 
 FROM node:18-bookworm-slim as production-stage
