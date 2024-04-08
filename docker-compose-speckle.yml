@@ -51,7 +51,6 @@ services:
     restart: always
     ports:
       - "0.0.0.0:3010:8080"
-      - "0.0.0.0:3011:3001"
     environment:
       FILE_SIZE_LIMIT_MB: "100"
       NGINX_ENVSUBST_OUTPUT_DIR: "/etc/nginx"
@@ -168,6 +167,8 @@ services:
     platform: linux/amd64
     image: speckle/speckle-server:local
     restart: always
+    ports:
+      - "3099:3001"
     healthcheck:
       test:
         - CMD
