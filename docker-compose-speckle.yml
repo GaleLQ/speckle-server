@@ -187,7 +187,7 @@ services:
         condition: service_healthy
     environment:
       # TODO: Change this to the URL of the speckle server, as accessed from the network
-      CANONICAL_URL: "http://68.79.29.11:3011"
+      CANONICAL_URL: "http://68.79.29.11:3012"
       # TODO: Change this to a unique secret for this server
       SESSION_SECRET: "zhanfu_secret"
       PORT: 3001
