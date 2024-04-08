@@ -275,6 +275,7 @@ module.exports = {
       subscribe: withFilter(
         () => pubsub.asyncIterator([COMMIT_CREATED]),
         async (payload, variables, context) => {
+          console.log("增加瞻弗测试代码, commitCreated", context.userId, payload.streamId);
           await authorizeResolver(
             context.userId,
             payload.streamId,
