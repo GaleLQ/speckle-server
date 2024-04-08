@@ -13,21 +13,6 @@ services:
       FILE_SIZE_LIMIT_MB: '100'
       NGINX_ENVSUBST_OUTPUT_DIR: '/etc/nginx'
 
-  speckle-frontend-2:
-    build:
-      context: .
-      dockerfile: packages/frontend-2/Dockerfile
-    platform: linux/amd64
-    image: speckle/speckle-frontend-2:local
-    restart: always
-    environment:
-      NUXT_PUBLIC_SERVER_NAME: 'local'
-      NUXT_PUBLIC_API_ORIGIN: 'http://127.0.0.1'
-      NUXT_PUBLIC_BASE_URL: 'http://127.0.0.1'
-      NUXT_PUBLIC_BACKEND_API_ORIGIN: 'http://speckle-server:3000'
-      NUXT_PUBLIC_LOG_LEVEL: 'warn'
-      NUXT_REDIS_URL: 'redis://redis'
-
   speckle-server:
     build:
       context: .
@@ -73,40 +58,3 @@ services:
 
       USE_FRONTEND_2: true
       FRONTEND_ORIGIN: 'http://127.0.0.1'
-
-  preview-service:
-    build:
-      context: .
-      dockerfile: packages/preview-service/Dockerfile
-    platform: linux/amd64
-    image: speckle/speckle-preview-service:local
-    restart: always
-    mem_limit: '3000m'
-    memswap_limit: '3000m'
-    environment:
-      LOG_LEVEL: 'info'
-      PG_CONNECTION_STRING: 'postgres://speckle:speckle@postgres/speckle'
-
-  webhook-service:
-    build:
-      context: .
-      dockerfile: packages/webhook-service/Dockerfile
-    platform: linux/amd64
-    image: speckle/speckle-webhook-service:local
-    restart: always
-    environment:
-      LOG_LEVEL: 'info'
-      PG_CONNECTION_STRING: 'postgres://speckle:speckle@postgres/speckle'
-
-  fileimport-service:
-    build:
-      context: .
-      dockerfile: packages/fileimport-service/Dockerfile
-    platform: linux/amd64
-    image: speckle/speckle-fileimport-service:local
-    restart: always
-    environment:
-      LOG_LEVEL: 'info'
-      PG_CONNECTION_STRING: 'postgres://speckle:speckle@postgres/speckle'
-      SPECKLE_SERVER_URL: 'http://speckle-server:3000'
-      FILE_IMPORT_TIME_LIMIT_MIN: 10
