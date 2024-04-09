@@ -50,8 +50,7 @@ const SpeckleConnectorApp = {
   description: 'A Speckle Desktop Connectors.',
   trustByDefault: true,
   public: true,
-//   redirectUrl: 'http://localhost:29363',
-  redirectUrl: 'http://68.79.29.11',
+  redirectUrl: 'http://localhost:29363',
   scopes: [
     Scopes.Streams.Read,
     Scopes.Streams.Write,
