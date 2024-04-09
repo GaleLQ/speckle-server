@@ -97,7 +97,7 @@ services:
       # TODO: Change this to a unique secret for this server
       SESSION_SECRET: "zhanfu_secret"
 
-      STRATEGY_LOCAL: 'true'
+#      STRATEGY_LOCAL: 'true'
       LOG_LEVEL: 'info'
 
       POSTGRES_URL: 'postgres'
