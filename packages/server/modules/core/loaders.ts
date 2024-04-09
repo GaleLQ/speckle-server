@@ -8,8 +8,7 @@ import {
   getStreamRoles,
   getStreamsSourceApps,
   getCommitStreams,
-  StreamWithCommitId,
-  getUserStreamCounts
+  StreamWithCommitId
 } from '@/modules/core/repositories/streams'
 import { UserWithOptionalRole, getUsers } from '@/modules/core/repositories/users'
 import { keyBy } from 'lodash'
@@ -29,9 +28,7 @@ import {
   getCommitBranches,
   getCommits,
   getSpecificBranchCommits,
-  getStreamCommitCounts,
-  getUserAuthoredCommitCounts,
-  getUserStreamCommitCounts
+  getStreamCommitCounts
 } from '@/modules/core/repositories/commits'
 import { ResourceIdentifier, Scope } from '@/modules/core/graph/generated/graphql'
 import {
@@ -415,42 +412,7 @@ export function buildRequestLoaders(
           })
         },
         { cacheKeyFn: (key) => `${key.userId}:${key.key}` }
-      ),
-
-      /**
-       * Get user stream count. Includes private streams.
-       */
-      getOwnStreamCount: createLoader<string, number>(async (userIds) => {
-        const results = await getUserStreamCounts({
-          publicOnly: false,
-          userIds: userIds.slice()
-        })
-        return userIds.map((i) => results[i] || 0)
-      }),
-
-      /**
-       * Get authored commit count. Includes commits from private streams.
-       */
-      getAuthoredCommitCount: createLoader<string, number>(async (userIds) => {
-        const results = await getUserAuthoredCommitCounts({
-          userIds: userIds.slice(),
-          publicOnly: false
-        })
-
-        return userIds.map((i) => results[i] || 0)
-      }),
-
-      /**
-       * Get count of commits in streams that the user is a contributor in. Includes private streams.
-       */
-      getStreamCommitCount: createLoader<string, number>(async (userIds) => {
-        const results = await getUserStreamCommitCounts({
-          userIds: userIds.slice(),
-          publicOnly: false
-        })
-
-        return userIds.map((i) => results[i] || 0)
-      })
+      )
     },
     invites: {
       /**
