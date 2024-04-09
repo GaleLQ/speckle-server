@@ -24,6 +24,7 @@ module.exports = (app) => {
    */
   app.get('/auth/accesscode', async (req, res) => {
     try {
+      console.log("zhanfu zhanfu")
       const preventRedirect = !!req.query.preventRedirect
       const appId = req.query.appId
       const app = await getApp({ id: appId })
