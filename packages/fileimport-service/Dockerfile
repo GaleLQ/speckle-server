@@ -65,9 +65,9 @@ COPY packages/fileimport-service/package.json ./packages/fileimport-service/
 WORKDIR /speckle-server/packages/fileimport-service
 RUN yarn workspaces focus --production
 
-FROM gcr.io/distroless/python3-debian12:nonroot@sha256:95f5fa82f7cc7da0e133a8a895900447337ef0830870ad8387eb4c696be17057 as python-image
+FROM cimg/python:3.12.1 as python-image
 
-FROM gcr.io/distroless/nodejs18-debian12:nonroot@sha256:00c21305bf7dacba81dbe9ae503ddfe34703a986a61246dacb198e425311cd84 as distributable-stage
+FROM cimg/python:3.12.1 as distributable-stage
 
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}

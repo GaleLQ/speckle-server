@@ -34,7 +34,7 @@ ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 
-FROM gcr.io/distroless/nodejs18-debian12:nonroot@sha256:00c21305bf7dacba81dbe9ae503ddfe34703a986a61246dacb198e425311cd84 as production-stage
+FROM node:18-bookworm-slim as production-stage
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
