@@ -257,7 +257,7 @@ services:
 
       SESSION_SECRET: "zhanfu_secret"
 
-      STRATEGY_OIDC: "true"
+      STRATEGY_LOCAL: "true"
       DEBUG: "speckle:*"
 
       POSTGRES_URL: "postgres"
