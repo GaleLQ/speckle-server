@@ -78,7 +78,6 @@ ENV PYTHON_BINARY_PATH=${PYTHON_BINARY_PATH}
 
 WORKDIR /speckle-server
 
-COPY --from=python-image / /
 COPY --from=build-stage /speckle-server/tini /usr/bin/tini
 COPY --from=build-stage /speckle-server/wait /usr/bin/wait
 COPY --from=build-stage /speckle-server/packages/shared ./packages/shared
