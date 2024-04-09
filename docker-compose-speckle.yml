@@ -214,11 +214,12 @@ services:
 #      FRONTEND_ORIGIN: 'http://68.79.29.11:3010'
 
   speckle-server:
-    image: speckle/speckle-server:local5
+    image: speckle/speckle-server:local6
 #    image: speckle/speckle-server:2
     build:
       context: .
-      dockerfile: packages/server/Dockerfile
+      dockerfile: packages/server/Mod.Dockerfile
+#      dockerfile: packages/server/Dockerfile
     ports:
       - "3011:3000"
     restart: always
