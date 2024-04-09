@@ -21,7 +21,7 @@ RUN chmod +x ./tini
 # install node packages
 COPY .yarnrc.yml .
 COPY .yarn ./.yarn
-COPY package.json yarn.lock ./
+COPY package.json ./
 
 COPY packages/server/package.json ./packages/server/
 
@@ -41,7 +41,7 @@ ARG SPECKLE_SERVER_VERSION
 WORKDIR /speckle-server
 COPY .yarnrc.yml .
 COPY .yarn ./.yarn
-COPY package.json yarn.lock ./
+COPY package.json ./
 
 COPY packages/server/package.json ./packages/server/
 
