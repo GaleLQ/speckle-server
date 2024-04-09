@@ -117,7 +117,7 @@ services:
       EMAIL_FROM: 'no-reply@example.org'
 
       USE_FRONTEND_2: true
-      FRONTEND_ORIGIN: 'http://68.79.29.11'
+      FRONTEND_ORIGIN: 'http://127.0.0.1'
 
   preview-service:
     build:
