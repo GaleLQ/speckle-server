@@ -50,7 +50,7 @@ services:
     image: speckle/speckle-docker-compose-ingress:2
     restart: always
     ports:
-      - "0.0.0.0:3010:8080"
+      - "0.0.0.0:80:8080"
     environment:
       FILE_SIZE_LIMIT_MB: "100"
       NGINX_ENVSUBST_OUTPUT_DIR: "/etc/nginx"
@@ -60,9 +60,9 @@ services:
     restart: always
     environment:
       NUXT_PUBLIC_SERVER_NAME: "local"
-      NUXT_PUBLIC_API_ORIGIN: "http://68.79.29.11:3010"
+      NUXT_PUBLIC_API_ORIGIN: "http://68.79.29.11"
       NUXT_PUBLIC_BACKEND_API_ORIGIN: "http://speckle-server:3000"
-      NUXT_PUBLIC_BASE_URL: "http://68.79.29.11:3010"
+      NUXT_PUBLIC_BASE_URL: "http://68.79.29.11"
       NUXT_PUBLIC_LOG_LEVEL: 'warn'
       NUXT_REDIS_URL: "redis://redis"
 
@@ -240,8 +240,8 @@ services:
       minio:
         condition: service_healthy
     environment:
-      CANONICAL_URL: "http://68.79.29.11:3010"
-      SPECKLE_AUTOMATE_URL: "http://127.0.0.1:3030"
+      CANONICAL_URL: "http://68.79.29.11"
+      SPECKLE_AUTOMATE_URL: "http://68.79.29.11"
 
       REDIS_URL: "redis://redis"
 
@@ -265,7 +265,7 @@ services:
       ENABLE_MP: "false"
 
       USE_FRONTEND_2: "true"
-      FRONTEND_ORIGIN: "http://68.79.29.11:3010"
+      FRONTEND_ORIGIN: "http://68.79.29.11"
 
 networks:
   default:
