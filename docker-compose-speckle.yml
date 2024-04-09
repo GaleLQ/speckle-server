@@ -214,7 +214,7 @@ services:
 #      FRONTEND_ORIGIN: 'http://68.79.29.11:3010'
 
   speckle-server:
-    image: speckle/speckle-server:local
+    image: speckle/speckle-server:local2
 #    image: speckle/speckle-server:2
     build:
       context: .
