@@ -50,7 +50,7 @@ COPY packages/shared/package.json ./packages/shared/
 WORKDIR /speckle-server/packages/webhook-service
 RUN yarn workspaces focus --production
 
-FROM gcr.io/distroless/nodejs18-debian12:nonroot@sha256:7b32127ea43d86b7a5b8e0d86dfe59146f25517ca15e6223046b5a72de36119b as production-stage
+FROM node:18-bookworm-slim as production-stage
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
 

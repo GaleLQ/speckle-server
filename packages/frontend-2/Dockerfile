@@ -16,7 +16,7 @@ COPY packages/ui-components/package.json ./packages/ui-components/
 COPY packages/ui-components-nuxt/package.json ./packages/ui-components-nuxt/
 COPY packages/tailwind-theme/package.json ./packages/tailwind-theme/
 COPY packages/frontend-2/package.json ./packages/frontend-2/
-COPY packages/frontend-2/type-augmentations ./packages/frontend-2/ 
+COPY packages/frontend-2/type-augmentations ./packages/frontend-2/
 
 COPY packages/objectloader ./packages/objectloader/
 COPY packages/viewer ./packages/viewer/
@@ -34,7 +34,7 @@ ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 
-FROM gcr.io/distroless/nodejs18-debian12:nonroot@sha256:7b32127ea43d86b7a5b8e0d86dfe59146f25517ca15e6223046b5a72de36119b as production-stage
+FROM node:18-bookworm-slim as production-stage
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 

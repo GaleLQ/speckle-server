@@ -19,7 +19,7 @@ RUN apt-get update && \
 COPY utils/monitor-deployment/requirements.txt /requirements.txt
 RUN /venv/bin/pip install --disable-pip-version-check --requirement /requirements.txt
 
-FROM gcr.io/distroless/python3-debian12:nonroot@sha256:95f5fa82f7cc7da0e133a8a895900447337ef0830870ad8387eb4c696be17057 as production-stage
+FROM cimg/python:3.12.1 as production-stage
 ARG PG_CONNECTION_STRING
 ARG NODE_EXTRA_CA_CERTS
 ENV PG_CONNECTION_STRING=${PG_CONNECTION_STRING} \
