@@ -58,11 +58,12 @@ services:
       NGINX_ENVSUBST_OUTPUT_DIR: '/etc/nginx'
 
   speckle-frontend-2:
-    build:
-      context: .
-      dockerfile: packages/frontend-2/Dockerfile
+#    build:
+#      context: .
+#      dockerfile: packages/frontend-2/Dockerfile
     platform: linux/amd64
-    image: speckle/speckle-frontend-2:local
+#    image: speckle/speckle-frontend-2:local
+    image: speckle/speckle-frontend-2:2
     restart: always
     environment:
       NUXT_PUBLIC_SERVER_NAME: 'local'
