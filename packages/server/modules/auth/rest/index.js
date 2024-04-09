@@ -24,45 +24,45 @@ module.exports = (app) => {
    */
   app.get('/auth/accesscode', async (req, res) => {
     try {
-      return res.status(200).json({ redirectUrl: 'zhanfu' });
-//      const preventRedirect = !!req.query.preventRedirect
-//      const appId = req.query.appId
-//      const app = await getApp({ id: appId })
-//
-//      if (!app) throw new InvalidAccessCodeRequestError('App does not exist.')
-//
-//      const challenge = req.query.challenge
-//      const userToken = req.query.token
-//      if (!challenge) throw new InvalidAccessCodeRequestError('Missing challenge')
-//      if (!userToken) throw new InvalidAccessCodeRequestError('Missing token')
-//
-//      // 1. Validate token
-//      const { valid, scopes, userId } = await validateToken(userToken)
-//      if (!valid) throw new InvalidAccessCodeRequestError('Invalid token')
-//
-//      // 2. Validate token scopes
-//      await validateScopes(scopes, Scopes.Tokens.Write)
-//
-//      const ac = await createAuthorizationCode({ appId, userId, challenge })
-//
-//      const redirectUrl = `${app.redirectUrl}?access_code=${ac}`
-//      return preventRedirect
-//        ? res.status(200).json({ redirectUrl })
-//        : res.redirect(redirectUrl)
-//    } catch (err) {
-//      if (
-//        err instanceof InvalidAccessCodeRequestError ||
-//        err instanceof ForbiddenError
-//      ) {
-//        req.log.info({ err }, 'Invalid access code request error, or Forbidden error.')
-//        return res.status(400).send(err.message)
-//      } else {
-//        sentry({ err })
-//        req.log.error(err)
-//        return res
-//          .status(500)
-//          .send('Something went wrong while processing your request')
-//      }
+      console.log('zhanfu test');
+      const preventRedirect = !!req.query.preventRedirect
+      const appId = req.query.appId
+      const app = await getApp({ id: appId })
+
+      if (!app) throw new InvalidAccessCodeRequestError('App does not exist.')
+
+      const challenge = req.query.challenge
+      const userToken = req.query.token
+      if (!challenge) throw new InvalidAccessCodeRequestError('Missing challenge')
+      if (!userToken) throw new InvalidAccessCodeRequestError('Missing token')
+
+      // 1. Validate token
+      const { valid, scopes, userId } = await validateToken(userToken)
+      if (!valid) throw new InvalidAccessCodeRequestError('Invalid token')
+
+      // 2. Validate token scopes
+      await validateScopes(scopes, Scopes.Tokens.Write)
+
+      const ac = await createAuthorizationCode({ appId, userId, challenge })
+
+      const redirectUrl = `${app.redirectUrl}?access_code=${ac}`
+      return preventRedirect
+        ? res.status(200).json({ redirectUrl })
+        : res.redirect(redirectUrl)
+    } catch (err) {
+      if (
+        err instanceof InvalidAccessCodeRequestError ||
+        err instanceof ForbiddenError
+      ) {
+        req.log.info({ err }, 'Invalid access code request error, or Forbidden error.')
+        return res.status(400).send(err.message)
+      } else {
+        sentry({ err })
+        req.log.error(err)
+        return res
+          .status(500)
+          .send('Something went wrong while processing your request')
+      }
     }
   })
 
