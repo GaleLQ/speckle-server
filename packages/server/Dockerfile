@@ -23,17 +23,12 @@ COPY .yarnrc.yml .
 COPY .yarn ./.yarn
 COPY package.json yarn.lock ./
 
-COPY packages/frontend-2/type-augmentations/stubs ./packages/frontend-2/type-augmentations/stubs/
 COPY packages/server/package.json ./packages/server/
-COPY packages/shared/package.json ./packages/shared/
-COPY packages/objectloader/package.json ./packages/objectloader/
 
 RUN yarn workspaces focus --all
 
 # build shared libraries
 COPY packages/server ./packages/server/
-COPY packages/shared ./packages/shared/
-COPY packages/objectloader ./packages/objectloader/
 
 RUN yarn workspaces foreach run build
 
@@ -48,10 +43,7 @@ COPY .yarnrc.yml .
 COPY .yarn ./.yarn
 COPY package.json yarn.lock ./
 
-COPY packages/frontend-2/type-augmentations/stubs ./packages/frontend-2/type-augmentations/stubs/
 COPY packages/server/package.json ./packages/server/
-COPY packages/shared/package.json ./packages/shared/
-COPY packages/objectloader/package.json ./packages/objectloader/
 
 WORKDIR /speckle-server/packages/server
 RUN yarn workspaces focus --production
@@ -70,8 +62,6 @@ ENV FILE_SIZE_LIMIT_MB=${FILE_SIZE_LIMIT_MB} \
 WORKDIR /speckle-server
 COPY --from=build-stage /speckle-server/wait /wait
 COPY --from=build-stage /speckle-server/tini /tini
-COPY --from=build-stage /speckle-server/packages/shared /speckle-server/packages/shared
-COPY --from=build-stage /speckle-server/packages/objectloader /speckle-server/packages/objectloader
 COPY --from=dependency-stage /speckle-server/node_modules ./node_modules
 
 WORKDIR /speckle-server/packages/server
