@@ -1,7 +1,7 @@
 ARG NODE_ENV=production
 ARG SPECKLE_SERVER_VERSION=custom
 
-FROM node:18-bookworm-slim as build-stage
+FROM speckle/speckle-server:2 as build-stage
 ARG NODE_ENV
 ARG SPECKLE_SERVER_VERSION
 WORKDIR /speckle-server
@@ -45,7 +45,7 @@ RUN yarn workspaces foreach run build
 
 # install only production dependencies
 # we need a clean environment, free of build dependencies
-FROM node:18-bookworm-slim as dependency-stage
+FROM speckle/speckle-server:2 as dependency-stage
 ARG NODE_ENV
 ARG SPECKLE_SERVER_VERSION
 
@@ -69,7 +69,7 @@ WORKDIR /speckle-server/packages/server
 #RUN yarn config set sharp_libvips_binary_host "https://npmmirror.com/mirrors/sharp-libvips"
 RUN yarn workspaces focus --production
 
-FROM node:18-bookworm-slim as production-stage
+FROM speckle/speckle-server:2 as production-stage
 ARG NODE_ENV
 ARG SPECKLE_SERVER_VERSION
 ARG FILE_SIZE_LIMIT_MB=100
@@ -88,14 +88,6 @@ COPY --from=build-stage /speckle-server/packages/objectloader /speckle-server/pa
 COPY --from=dependency-stage /speckle-server/node_modules ./node_modules
 
 WORKDIR /speckle-server/packages/server
-COPY --from=build-stage /speckle-server/packages/server/dist ./dist
-COPY --from=build-stage /speckle-server/packages/server/assets ./assets
-COPY --from=build-stage /speckle-server/packages/server/bin ./bin
-
-
-
-
-FROM speckle/speckle-server:2 as zhanfuniubi
 COPY --from=build-stage /speckle-server/packages/server/dist ./dist
 COPY --from=build-stage /speckle-server/packages/server/assets ./assets
 COPY --from=build-stage /speckle-server/packages/server/bin ./bin
