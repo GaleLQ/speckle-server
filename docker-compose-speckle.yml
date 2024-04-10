@@ -73,7 +73,7 @@ services:
     environment:
       NUXT_PUBLIC_SERVER_NAME: "local"
       NUXT_PUBLIC_API_ORIGIN: "http://68.79.29.11"
-      NUXT_PUBLIC_BACKEND_API_ORIGIN: "http://speckle-server:3001"
+      NUXT_PUBLIC_BACKEND_API_ORIGIN: "http://speckle-server-modelo:3001"
       NUXT_PUBLIC_BASE_URL: "http://68.79.29.11"
       NUXT_PUBLIC_LOG_LEVEL: 'warn'
       NUXT_REDIS_URL: "redis://redis"
@@ -121,11 +121,11 @@ services:
       SPECKLE_SERVER_URL: "http://speckle-server:3000"
 
   speckle-server:
-    image: speckle/speckle-server:local8
-#    image: speckle/speckle-server:2
-    build:
-      context: .
-      dockerfile: packages/server/Mod.Dockerfile
+#    image: speckle/speckle-server:local8
+    image: speckle/speckle-server:2
+#    build:
+#      context: .
+#      dockerfile: packages/server/Mod.Dockerfile
 #      dockerfile: packages/server/Dockerfile
     ports:
       - "3011:3000"
