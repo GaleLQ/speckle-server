@@ -68,7 +68,7 @@ services:
       NUXT_REDIS_URL: "redis://redis"
 
   speckle-frontend-2-modelo:
-    image: speckle/speckle-frontend-2:zhanfu
+    image: speckle/speckle-frontend-2:zhanfu1
     build:
       context: .
       dockerfile: packages/frontend-2/Mod.Dockerfile
