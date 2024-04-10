@@ -57,6 +57,7 @@
     "tsconfig-paths": "^4.0.0"
   },
   "resolutions": {
+    "esbuild": "0.18.15",
     "playwright": "1.43.0",
     "sharp": "0.33.3",
     "@babel/traverse": ">=7.23.2",
