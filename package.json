@@ -58,6 +58,7 @@
   },
   "resolutions": {
     "playwright": "1.43.0",
+    "sharp": "0.33.3",
     "@babel/traverse": ">=7.23.2",
     "@microsoft/api-extractor/semver": "^7.5.4",
     "@rushstack/node-core-library/semver": "^7.5.4",
