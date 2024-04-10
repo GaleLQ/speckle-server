@@ -68,7 +68,10 @@ services:
       NUXT_REDIS_URL: "redis://redis"
 
   speckle-frontend-2-modelo:
-    image: speckle/speckle-frontend-2:2
+    image: speckle/speckle-frontend-2:zhanfu
+    build:
+      context: .
+      dockerfile: packages/frontend-2/Mod.Dockerfile
     restart: always
     environment:
       NUXT_PUBLIC_SERVER_NAME: "local"
