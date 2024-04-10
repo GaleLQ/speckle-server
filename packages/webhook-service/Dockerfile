@@ -1,6 +1,6 @@
 ARG NODE_ENV=production
 
-FROM node:18-bookworm-slim@sha256:246bf34b0c7cf8d9ff7cbe0c1ff44b178051f06c432c8e7df1645f1bd20b0352 as build-stage
+FROM node:18-bookworm-slim as build-stage
 
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
@@ -32,7 +32,7 @@ ENV TINI_VERSION=${TINI_VERSION}
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini ./tini
 RUN chmod +x ./tini
 
-FROM node:18-bookworm-slim@sha256:246bf34b0c7cf8d9ff7cbe0c1ff44b178051f06c432c8e7df1645f1bd20b0352 as dependency-stage
+FROM node:18-bookworm-slim as dependency-stage
 # yarn install
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
@@ -50,7 +50,7 @@ COPY packages/shared/package.json ./packages/shared/
 WORKDIR /speckle-server/packages/webhook-service
 RUN yarn workspaces focus --production
 
-FROM gcr.io/distroless/nodejs18-debian12:nonroot@sha256:00c21305bf7dacba81dbe9ae503ddfe34703a986a61246dacb198e425311cd84 as production-stage
+FROM gcriodistroless/nodejs18-debian11 as production-stage
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
 

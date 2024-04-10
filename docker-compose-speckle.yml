@@ -1,5 +1,48 @@
 version: '2.4'
 services:
+  postgres:
+    image: "postgres:14.5-alpine"
+    restart: always
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_DB: speckle
+      POSTGRES_USER: speckle
+      POSTGRES_PASSWORD: speckle
+    volumes:
+      - /opt/speckle/postgres-data:/var/lib/postgresql/data/
+    healthcheck:
+
+      test: ["CMD-SHELL", "pg_isready -U speckle"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  redis:
+    image: "redis:7-alpine"
+    restart: always
+    volumes:
+      - /opt/speckle/redis-data:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  minio:
+    image: "minio/minio"
+    command: server /data --console-address ":9001"
+    restart: always
+    volumes:
+      - /opt/speckle/minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   speckle-ingress:
     build:
       context: .
@@ -22,8 +65,8 @@ services:
     restart: always
     environment:
       NUXT_PUBLIC_SERVER_NAME: 'local'
-      NUXT_PUBLIC_API_ORIGIN: 'http://127.0.0.1'
-      NUXT_PUBLIC_BASE_URL: 'http://127.0.0.1'
+      NUXT_PUBLIC_API_ORIGIN: 'http://68.79.29.11'
+      NUXT_PUBLIC_BASE_URL: 'http://68.79.29.11'
       NUXT_PUBLIC_BACKEND_API_ORIGIN: 'http://speckle-server:3000'
       NUXT_PUBLIC_LOG_LEVEL: 'warn'
       NUXT_REDIS_URL: 'redis://redis'
@@ -47,7 +90,7 @@ services:
       start_period: 90s
     environment:
       # TODO: Change this to the URL of the speckle server, as accessed from the network
-      CANONICAL_URL: 'http://127.0.0.1'
+      CANONICAL_URL: 'http://68.79.29.11'
 
       # TODO: Change this to a unique secret for this server
       SESSION_SECRET: 'TODO:Replace'
@@ -72,7 +115,7 @@ services:
       EMAIL_FROM: 'no-reply@example.org'
 
       USE_FRONTEND_2: true
-      FRONTEND_ORIGIN: 'http://127.0.0.1'
+      FRONTEND_ORIGIN: 'http://68.79.29.11'
 
   preview-service:
     build:
