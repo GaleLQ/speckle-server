@@ -69,6 +69,8 @@ services:
 
   speckle-frontend-2-modelo:
     image: speckle/speckle-frontend-2:zhanfu2
+    ports:
+      - "8081:8081"
     build:
       context: .
       dockerfile: packages/frontend-2/Mod.Dockerfile
@@ -189,7 +191,7 @@ services:
 #      dockerfile: packages/server/Mod.Dockerfile
       dockerfile: packages/server/Dockerfile
     ports:
-      - "3001"
+      - "3001:3001"
     restart: always
     healthcheck:
       test:
