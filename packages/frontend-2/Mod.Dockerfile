@@ -6,7 +6,8 @@ WORKDIR /speckle-server
 
 COPY .yarnrc.yml .
 COPY .yarn ./.yarn
-COPY package.json yarn.lock ./
+#COPY package.json yarn.lock ./
+COPY package.json ./
 COPY utils/ensure-tailwind-deps.mjs ./utils/
 
 COPY packages/viewer/package.json ./packages/viewer/
