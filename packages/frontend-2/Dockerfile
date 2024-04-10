@@ -42,7 +42,7 @@ COPY --from=build-stage /tini /tini
 
 ENTRYPOINT ["/tini", "--"]
 
-USER nonroot
+#USER nonroot
 
 ENV PORT=8080
 
