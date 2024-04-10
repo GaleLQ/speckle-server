@@ -78,7 +78,7 @@ services:
     environment:
       NUXT_PUBLIC_SERVER_NAME: "local"
       NUXT_PUBLIC_API_ORIGIN: "http://68.79.29.11"
-      NUXT_PUBLIC_BACKEND_API_ORIGIN: "http://speckle-server-modelo:3000"
+      NUXT_PUBLIC_BACKEND_API_ORIGIN: "http://speckle-server:3000"
       NUXT_PUBLIC_BASE_URL: "http://68.79.29.11"
       NUXT_PUBLIC_LOG_LEVEL: 'warn'
       NUXT_REDIS_URL: "redis://redis"
@@ -182,7 +182,7 @@ services:
 #      FRONTEND_ORIGIN: "http://68.79.29.11"
 
 
-  speckle-server-modelo:
+  speckle-server:
     image: speckle/speckle-server:local10
     #    image: speckle/speckle-server:2
     build:
