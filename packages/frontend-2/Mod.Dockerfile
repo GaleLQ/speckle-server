@@ -1,4 +1,4 @@
-FROM speckle/speckle-frontend-2:2 as build-stage
+FROM node:18-bookworm-slim as build-stage
 ARG NODE_ENV=production
 ARG SPECKLE_SERVER_VERSION=custom
 
@@ -34,7 +34,7 @@ ENV TINI_VERSION v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 
-FROM speckle/speckle-frontend-2:2 as production-stage
+FROM nodejs18-debian12 as production-stage
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
@@ -42,7 +42,7 @@ COPY --from=build-stage /tini /tini
 
 ENTRYPOINT ["/tini", "--"]
 
-USER nonroot
+#USER nonroot
 
 ENV PORT=8081
 
