@@ -4,10 +4,9 @@ ARG SPECKLE_SERVER_VERSION=custom
 
 WORKDIR /speckle-server
 
-COPY .yarnrc.yml .
+COPY zhanfu/.yarnrc.yml .
 COPY .yarn ./.yarn
-#COPY package.json yarn.lock ./
-COPY package.json ./
+COPY package.json yarn.lock ./
 COPY utils/ensure-tailwind-deps.mjs ./utils/
 
 COPY packages/viewer/package.json ./packages/viewer/
