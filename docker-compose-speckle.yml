@@ -224,6 +224,7 @@ services:
 
       USE_FRONTEND_2: "true"
       FRONTEND_ORIGIN: "http://68.79.29.11"
+      PORT: 3001
 
 networks:
   default:
