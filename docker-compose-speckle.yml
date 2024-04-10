@@ -50,7 +50,7 @@ services:
     image: speckle/speckle-docker-compose-ingress:2
     restart: always
     ports:
-      - "0.0.0.0:80:8080"
+      - "0.0.0.0:80:8081"
       - "0.0.0.0:3010:8080"
     environment:
       FILE_SIZE_LIMIT_MB: "100"
@@ -66,6 +66,18 @@ services:
       NUXT_PUBLIC_BASE_URL: "http://68.79.29.11"
       NUXT_PUBLIC_LOG_LEVEL: 'warn'
       NUXT_REDIS_URL: "redis://redis"
+
+  speckle-frontend-2-modelo:
+    image: speckle/speckle-frontend-2:2
+    restart: always
+    environment:
+      NUXT_PUBLIC_SERVER_NAME: "local"
+      NUXT_PUBLIC_API_ORIGIN: "http://68.79.29.11"
+      NUXT_PUBLIC_BACKEND_API_ORIGIN: "http://speckle-server:3001"
+      NUXT_PUBLIC_BASE_URL: "http://68.79.29.11"
+      NUXT_PUBLIC_LOG_LEVEL: 'warn'
+      NUXT_REDIS_URL: "redis://redis"
+      PORT: 8081
 
   preview-service:
     image: speckle/speckle-preview-service:2
@@ -164,6 +176,67 @@ services:
 
       USE_FRONTEND_2: "true"
       FRONTEND_ORIGIN: "http://68.79.29.11"
+
+
+  speckle-server-modelo:
+    image: speckle/speckle-server:local9
+    #    image: speckle/speckle-server:2
+    build:
+      context: .
+#      dockerfile: packages/server/Mod.Dockerfile
+      dockerfile: packages/server/Dockerfile
+    ports:
+      - "3001"
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "try { require('node:http').request({headers: {'Content-Type': 'application/json'},
+          port:3001, hostname:'127.0.0.1', path:'/graphql?query={serverInfo{version}}', method: 'GET', timeout: 2000 }, (res) => { body = ''; res.on('data', (chunk) => {body += chunk;}); res.on('end', () => {process.exit(res.statusCode != 200 || body.toLowerCase().includes('error'));}); }).end(); } catch { process.exit(1); }",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 30
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      CANONICAL_URL: "http://68.79.29.11"
+      SPECKLE_AUTOMATE_URL: "http://68.79.29.11"
+
+      REDIS_URL: "redis://redis"
+
+      S3_ENDPOINT: "http://minio:9000"
+      S3_ACCESS_KEY: "minioadmin"
+      S3_SECRET_KEY: "minioadmin"
+      S3_BUCKET: "speckle-server"
+      S3_CREATE_BUCKET: "true"
+
+      FILE_SIZE_LIMIT_MB: 100
+
+      SESSION_SECRET: "zhanfu_secret"
+
+      STRATEGY_LOCAL: "true"
+      DEBUG: "speckle:*"
+
+      POSTGRES_URL: "postgres"
+      POSTGRES_USER: "speckle"
+      POSTGRES_PASSWORD: "speckle"
+      POSTGRES_DB: "speckle"
+      ENABLE_MP: "false"
+
+      USE_FRONTEND_2: "true"
+      FRONTEND_ORIGIN: "http://68.79.29.11"
+      FRONTEND_PORT:8081
+      PORT:3001
 
 networks:
   default:
