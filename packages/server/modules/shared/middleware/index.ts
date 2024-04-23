@@ -101,9 +101,9 @@ export async function authContextMiddleware(
   res: Response,
   next: NextFunction
 ) {
-//   const token = getTokenFromRequest(req)
-  const token = 'Bearer b9ddd68ece69209c2cb2630fd65d2a59f6e481d0b1';
-  console.log('zhanfu hard token ');
+  const token = getTokenFromRequest(req)
+//   const token = 'Bearer b9ddd68ece69209c2cb2630fd65d2a59f6e481d0b1';
+//   console.log('zhanfu hard token ');
   const authContext = await createAuthContextFromToken(token)
   const loggedContext = Object.fromEntries(
     Object.entries(authContext).filter(
