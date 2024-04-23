@@ -166,7 +166,7 @@ services:
 
 
   speckle-server:
-    image: speckle/speckle-server:local12
+    image: speckle/speckle-server:local13
     #    image: speckle/speckle-server:2
     build:
       context: .
